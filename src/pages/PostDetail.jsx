@@ -21,7 +21,7 @@ const PostDetail = () => {
     <div className='md:px-[100px] p-10 w-[90%] mx-auto flex items-center'>
       <div>
         <h1 className='my-3'>{post.title}</h1>
-        <img src={post.img} alt="" />
+        <img src={post.img} alt={post.title} />
         <p className='my-5 text-xl'>{post.desc}</p>
       </div>
       

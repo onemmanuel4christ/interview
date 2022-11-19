@@ -19,16 +19,12 @@ const CreateNew = () => {
         const data = new FormData()
         const filename = Date.now() +file.name;
         data.append("name", filename)
-        data.append("file", file);
-        newPost.img = filename;
-        try {
-            // await axios.post('/upload', data)
-        } catch (error) { }
+        // data.append("file", file);
+        // newPost.img = filename;
+        console.log("data =", data)
     }
     try {
         blogRecord.push(newPost)
-        console.log(blogRecord)
-        // window.location.replace("/")
     } catch (error) {}
 }
   return (
@@ -44,7 +40,7 @@ const CreateNew = () => {
             <label htmlFor="fileInput" className='flex items-center gap-2'>Add Image <i className="writeIcon fa-regular fa-plus"></i></label>
             <input  type="file" id="fileInput" 
                     style={{display: 'none'}} 
-                    onChange={(e) => setFile(e.target.files[0])}
+                    onChange={(e) => setFile(URL.createObjectURL(e.target.files[0]))}
                     />
         </div>
 

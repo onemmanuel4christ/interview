@@ -11,7 +11,7 @@ const PostComponent = ({id, title, desc, img}) => {
         <span className='mr-5'>PUBLISHED: 4 mins ago</span>
       </div>
         <h1 className='text-[#000333] md:text-5xl my-4'>{title}</h1>
-        <p className='text-[#001122] text-[1.2rem] line-clamp-4'>{desc}</p>
+        <p className='text-[#001122] max-w-[600px] text-[1.2rem] line-clamp-4'>{desc}</p>
 
         <span className='mr-5 text-gray-300'>Source: Interview Test</span> <br />
 

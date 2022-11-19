@@ -3,6 +3,8 @@ import { blogRecord } from '../data'
 import PostComponent from '../components/PostComponent'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Axios  from 'axios';
+import { Image } from 'cloudinary-react';
 
 const Home = () => {
     const [posts, setPost] = useState(blogRecord)
@@ -24,20 +26,16 @@ const Home = () => {
     };
 
     if(file){
-        const data = new FormData()
-        const filename = Date.now() +file.name;
-        data.append("name", filename)
-        data.append("file", file);
-        newPost.img = filename;
-        try {
-        } catch (error) { }
-    }
-    try {
-        blogRecord.push(newPost)
-        console.log(blogRecord)
-    } catch (error) {}
-
-    handleClose()
+      const data = new FormData()
+      data.append("upload_preset", "blogimage")
+      data.append("file", file);
+      newPost.img = URL.createObjectURL(file)      
+      Axios.post("https://api.cloudinary.com/v1_1/dzcpsb02f/image/upload", data).then((response) =>{
+        console.log(response)
+      })
+  }
+  blogRecord.push(newPost)
+  handleClose()
     
 }
   return (
@@ -62,7 +60,9 @@ const Home = () => {
             <label htmlFor="fileInput" className='flex items-center gap-2'>Add Image <i className="writeIcon fa-regular fa-plus"></i></label>
             <input  type="file" id="fileInput" 
                     style={{display: 'none'}} 
-                    onChange={(e) => setFile(e.target.files[0])}
+                    onChange={(e) => {
+                      setFile(e.target.files[0])
+                    }}
                     />
         </div>
 
@@ -94,7 +94,7 @@ const Home = () => {
         </Modal.Footer>
       </Modal>
        <div className='flex p-10 justify-center md:flex-row flex-col gap-10'>
-        <div className='flex-[70%] '>
+        <div className='flex-[70%] md:p-10 '>
             {posts.map(post =>(
                 <PostComponent key={post.id}
                  id={post.id}
@@ -123,6 +123,7 @@ const Home = () => {
         </div>
         <div className='my-2'>
           <h5>Advert</h5>
+          <img src="https://image.shutterstock.com/image-vector/business-webinar-horizontal-banner-template-260nw-2041227701.jpg" alt="" />
           <img src="https://image.shutterstock.com/image-vector/business-webinar-horizontal-banner-template-260nw-2041227701.jpg" alt="" />
         </div>
         <div className='my-2'>
